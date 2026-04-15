@@ -101,7 +101,7 @@ public class Java_jdbc {
         
         
 
-        
+     scnr.close();   
     }
     
 }

@@ -17,7 +17,7 @@ public class Delete {
 		try
 	    {
 	        Class.forName("com.mysql.cj.jdbc.Driver");
-	        Connection con = DriverManager.getConnection(main.DB_URL, main.DB_USER, main.DB_PASSWORD);
+	        Connection con = DriverManager.getConnection(main.DB_URL + main.DB_NAME, main.DB_USER, main.DB_PASSWORD);
 	        Statement stm = con.createStatement();
 
 		    int result ; 

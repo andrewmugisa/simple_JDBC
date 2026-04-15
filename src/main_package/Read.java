@@ -1,8 +1,6 @@
 package main_package;
 
-import java.sql.Connection;
 import java.sql.*;
-import java.sql.Statement;
 
 public class Read { 
     //Read
@@ -11,10 +9,13 @@ public class Read {
 	private int age;
 	private String phone;
 	private String password;
-	
     private String check;
     
     Main main = new Main();
+    
+    /// ///
+    /// ///
+    /// ///
     
     public void setPhone(String phone){
     	this.phone = phone;
@@ -23,15 +24,19 @@ public class Read {
     	this.password = password;
     }
     
+    /// ///
+    /// ///
+    /// ///
+    
     public void readData() {
 	    try
 	    {
 	        Class.forName("com.mysql.cj.jdbc.Driver");
-	        Connection con = DriverManager.getConnection(main.DB_URL, main.DB_USER, main.DB_PASSWORD);
+	        Connection con = DriverManager.getConnection(main.DB_URL + main.DB_NAME, main.DB_USER, main.DB_PASSWORD);
 	        Statement stm = con.createStatement();
 	    
 	        check = "SELECT Customer_id, Name, Age, Phone, Password FROM customer WHERE Phone = '"+phone+"' AND Password = '"+password+"' ";
-	        //if(pne)
+	        
 	
 	
 	        ResultSet rs = stm.executeQuery(check);
@@ -45,11 +50,15 @@ public class Read {
 			        //System.out.println(this.id + " " + this.name + " " + this.age + " " + this.phone + " "+ " " + this.password + " ");
 			    }
 	    }catch(Exception e){
-	        System.out.println(e);
+	        //System.out.println(e);
 	     
 	    }
 
     }
+    
+    /// ///
+    /// ///
+    /// ///
     
     
        //getters

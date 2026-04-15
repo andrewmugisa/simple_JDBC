@@ -6,7 +6,7 @@ import java.sql.Statement;
 import java.sql.SQLException;
 
 public class Main {
-
+//previous version is confirmed to work //Connection con = DriverManager.getConnection("jdbc:mysql://localhost/JDBC_DB", "root", "PASSWORD");
     // Database connection details
     public final String DB_URL = "jdbc:mysql://localhost/";
     public final String DB_USER = "root";
@@ -14,7 +14,7 @@ public class Main {
     public final String DB_NAME = "JDBC_DB";  // Desired database name
 
     public static void main(String[] args) {
-        Main main = new Main();
+       Main main = new Main();
 
         // Step 1: Create database if it doesn't exist
         main.createDatabase();
@@ -23,11 +23,13 @@ public class Main {
         main.createTables();
 
         // Step 3: Perform CRUD operations (as needed)
+        signin signin = new signin();
+        signin.main(args);
       //  Create create = new Create();
         // create.createUser(); // Uncomment to create a new user
 
-        //Read read = new Read();
-        //read.readData();
+        Read read = new Read();
+        read.readData();
 
         //Update update = new Update();
         // update.updateData(); // Uncomment to update data
@@ -62,7 +64,7 @@ public class Main {
                     + "Password VARCHAR(100) NOT NULL, "
                     + "Age INT NOT NULL) ";
             stmt.executeUpdate(createTableSQL);
-            System.out.println("Table 'users' is ready.");
+            System.out.println("Table 'customer' is ready.");
 
         } catch (SQLException e) {
             e.printStackTrace();

@@ -4,14 +4,16 @@ import java.util.Scanner;
 
 public class signin {
 	Scanner scnr = new Scanner(System.in);
-	private static String phoneNumber = "";
-	private static String password = "";
-	private static  int id = 0;
-	private static String name = "";
-	private static int age = 0;
-	private static boolean authorised = false;	
+	private String phoneNumber = "";
+	private String password = "";
+	private int id = 0;
+	private String name = "";
+	private int age = 0;
+	private boolean authorised = false;	
 	private String input;
+	private static String option;
 	
+	Create create = new Create();
 	Read read = new Read();
 	Update update = new Update();
 	Delete delete = new Delete();
@@ -19,16 +21,40 @@ public class signin {
 	String correctPhone;
 	String correctPassword;
 	
-	private static final int maxTries = 3;
-	private static int tries = 0;
+	private final int maxTries = 3;
+	private int tries = 0;
 	
 	/// ///
 	/// ///
 	/// ///
+	
+	public void createAccount() {
+		//Name, Age, Phone, Password
+		System.out.println("-----CREATE ACCOUNT-----");
+		System.out.print("Enter new name: ");
+		String newName = scnr.nextLine();
+		
+		System.out.print("Enter your age: ");
+		int newAge = scnr.nextInt();
+		scnr.nextLine();
+		
+		System.out.print("Enter new phone: ");
+		String newPhone =scnr.nextLine();
+		
+		System.out.print("Enter new password: ");
+		String newPassword =scnr.nextLine();
+		create.createUser(newName, newAge, newPhone, newPassword );
+	}
+	
+	
+	
+	/// ///
+	/// ///
 	/// ///
 	public void sighnOn() {
+		tries = 0;
 		while(tries < maxTries) {
-		
+			System.out.println("-----SIGHN ON-----");
 			System.out.println("Enter phonenumber: ");
 			phoneNumber = scnr.nextLine();
 			read.setPhone(phoneNumber);
@@ -41,11 +67,7 @@ public class signin {
 			
 			correctPhone = read.getPhone();
 			correctPassword = read.getPassword();
-	
-	        if (read.getId() == 0) {  // No user found
-	            System.out.println("User doesn't exist! Let's try again.");
-	            tries++;
-	        } else {
+	        if (read.getId() != 0) {  //user found
 				if(phoneNumber.equals(correctPhone) && password.equals(correctPassword)) {
 					System.out.println("Hello, " + read.getName() + ". Login was successful.");
 					phoneNumber = read.getPhone();
@@ -56,17 +78,18 @@ public class signin {
 					authorised = true;
 					sighnedIn();
 					break;
+					}
 				}else {
-	                System.out.println("Incorrect phone number or password. Let's try again.");
-	                tries++;
+					tries++;
+					if(tries < maxTries) {
+					System.out.println("Incorrect phone number or password. Let's try again.");	
+					}                
 				}
 	        }
-				
-			if (tries == maxTries) {
-				System.out.println("Sorry you have 3 incorrent tries. \n Forgot password or Phone Number!, click here.");
-				System.out.println("Account locked for 2 hours");
-				System.exit(0);
-			}
+		if (tries == maxTries) {
+			System.out.println("Sorry you have 3 incorrent tries. \nForgot password or Phone Number!, click here.\n");
+			redirect();
+			//System.exit(0);
 		}
 	}
 	
@@ -76,7 +99,7 @@ public class signin {
 	/// ///
 	
 	public void sighnedIn() {
-		
+		tries = 0;
 		System.out.printf("\nWelcome to CC Bank %s.\n", name);
 		
 		System.out.println("Here's your profile: " +
@@ -122,9 +145,8 @@ public class signin {
 					System.out.print("Enter \"y\" to confirm delete: ");
 					String confirm = scnr.nextLine();
 					if (confirm.equals("y")){
-						System.out.print("Delete in progress");
+						System.out.println("Delete in progress");
 						delete.delUser(id);
-						System.out.print("User deleted successfully");
 						System.exit(0);}
 					break;
 				case "Exit", "exit":
@@ -142,19 +164,39 @@ public class signin {
 	/// ///
 	/// ///
 	/// ///
+	
+	public void redirect() {
+		tries = 0;
+        System.out.println("Please select: "
+        		+ "\n1. Signin"
+        		+ "\n2. Register");
+        
+        option = scnr.nextLine();
+		if(option.equals("1")) {
+			if(authorised) {
+				sighnedIn();
+			}else {
+				sighnOn();
+			}
+			
+		}else if (option.equals("2")) {
+			createAccount();
+		}else {
+			redirect();
+		}
+	}
+	/// 
+	/// 
+	/// 
 
 	public static void main(String[] args) {
 		
 		signin signin = new signin();
 		
 		System.out.println("Welcome to CC Bank");
-		
-		if(authorised) {
-			signin.sighnedIn();
-		}else {
-			signin.sighnOn();
-		}
 
+        signin.redirect();
+		
 	}
 	
 }
