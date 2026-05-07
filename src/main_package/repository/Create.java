@@ -1,6 +1,9 @@
-package main_package;
+package main_package.repository;
 
 import java.sql.*;
+
+import main_package.Main;
+//import main_package.service.services;
 
 public class Create {
 
@@ -9,7 +12,7 @@ public class Create {
 	public void createUser(String newName, int newAge, String newPhone, String newPassword){
     
 	Main main = new Main();
-	signin signin = new signin();
+	//services services = new services();
 		try
         {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -24,8 +27,8 @@ public class Create {
 		    
 		    result = stm.executeUpdate(query);
 		    if(result ==1) {
-		    	System.out.println("Use account Created Successfully");
-		    	signin.sighnOn();
+		    	System.out.println(newName + "\n, account Created Successfully\n");
+		    	//services.login();
 		    }else {
 		    	System.out.println("Error!! Please input valid data");
 		    }

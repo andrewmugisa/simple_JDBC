@@ -1,5 +1,5 @@
 
-package main_package;
+package main_package.other;
 
 import java.sql.*;
 import java.util.Scanner;

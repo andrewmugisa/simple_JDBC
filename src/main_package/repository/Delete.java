@@ -1,8 +1,10 @@
-package main_package;
+package main_package.repository;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
+
+import main_package.Main;
 
 public class Delete {
 	Main main = new Main();

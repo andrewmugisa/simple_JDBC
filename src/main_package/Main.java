@@ -3,22 +3,31 @@ package main_package;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
+import main_package.controller.controller;
+
 import java.sql.SQLException;
 
 public class Main {
-	//previous version is confirmed to work //Connection con = DriverManager.getConnection("jdbc:mysql://localhost/JDBC_DB", "root", "PASSWORD");
-	// Database connection details (will be loaded from .env later)
+	// Database connection details (will be loaded from .env)
 	public final String DB_URL = System.getProperty("MYSQL_URL", "jdbc:mysql://localhost/");
 	public final String DB_USER = System.getProperty("MYSQL_USER", "root");
 	public final String DB_PASSWORD = System.getProperty("MYSQL_PASSWORD", "");
 	public final String DB_NAME = System.getProperty("MYSQL_DATABASE", "JDBC_DB");
 
-    public static void main(String[] args) {
+	
+	
+	
+	
+	
+	
+	
+  
+	public static void main(String[] args) {
     	//EnvLoader EnvLoader = new EnvLoader();
+    	//load .env file with the loader
         EnvLoader.load(".env");
-        System.out.println("USER: " + System.getProperty("MYSQL_USER"));
-        System.out.println("PASS: " + System.getProperty("MYSQL_PASSWORD"));
         
+        //initialise main to be able to use its methods
        Main main = new Main();
        
         // Step 1: Create database if it doesn't exist
@@ -26,19 +35,57 @@ public class Main {
 
         // Step 2: Create tables if they don't exist
         main.createTables();
-
-        // Step 3: Perform CRUD operations (as needed)
-        //signin signin = new signin();
-        main_package.signin.main(args);
-      //  Create create = new Create();
-        // create.createUser(); // Uncomment to create a new user
-
-        Read read = new Read();
-        read.readData();
-
-        //Update update = new Update();
-        // update.updateData(); // Uncomment to update data
+       
+        System.out.println("\nWelcome to CC Bank\n"
+        		+ "");
+		// Step 3: Call contolswitch passing in redirect
+        controller.controlSwitch("/redirect");
+    
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 
     // Method to create the database
