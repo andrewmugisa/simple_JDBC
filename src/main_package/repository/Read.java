@@ -1,6 +1,8 @@
-package main_package;
+package main_package.repository;
 
 import java.sql.*;
+
+import main_package.Main;
 
 public class Read { 
     //Read
@@ -55,6 +57,40 @@ public class Read {
 	    }
 
     }
+    
+    public boolean phoneExists(String phone) {
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            Connection con = DriverManager.getConnection(
+                main.DB_URL + main.DB_NAME,
+                main.DB_USER,
+                main.DB_PASSWORD
+            );
+
+            String sql = "SELECT Phone FROM customer WHERE Phone = ?";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, phone);
+
+            ResultSet rs = ps.executeQuery();
+
+            boolean exists = rs.next();
+
+            rs.close();
+            ps.close();
+            con.close();
+
+            return exists;
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+    
     
     /// ///
     /// ///
