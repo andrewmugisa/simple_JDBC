@@ -48,7 +48,7 @@ public class signin {
 	
 	
 	
-	/// ///
+	/// ////JDBC1
 	/// ///
 	/// ///
 	public void sighnOn() {
@@ -111,7 +111,7 @@ public class signin {
 
 		boolean keepAlive = true;
 		while(keepAlive) {
-		System.out.println("\nWould you like to Update or delete you account! use 1-4 to update or \"del\" To DELETE account");
+		System.out.println("\nWould you like to Update or delete you account! \nuse 1-4 to update or \"del\" To DELETE account");
 		input = scnr.nextLine();
 		
 			switch(input) {

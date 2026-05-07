@@ -6,16 +6,21 @@ import java.sql.Statement;
 import java.sql.SQLException;
 
 public class Main {
-//previous version is confirmed to work //Connection con = DriverManager.getConnection("jdbc:mysql://localhost/JDBC_DB", "root", "PASSWORD");
-    // Database connection details
-    public final String DB_URL = "jdbc:mysql://localhost/";
-    public final String DB_USER = "root";
-    public final String DB_PASSWORD = "PASSWORD";
-    public final String DB_NAME = "JDBC_DB";  // Desired database name
+	//previous version is confirmed to work //Connection con = DriverManager.getConnection("jdbc:mysql://localhost/JDBC_DB", "root", "PASSWORD");
+	// Database connection details (will be loaded from .env later)
+	public final String DB_URL = System.getProperty("MYSQL_URL", "jdbc:mysql://localhost/");
+	public final String DB_USER = System.getProperty("MYSQL_USER", "root");
+	public final String DB_PASSWORD = System.getProperty("MYSQL_PASSWORD", "");
+	public final String DB_NAME = System.getProperty("MYSQL_DATABASE", "JDBC_DB");
 
     public static void main(String[] args) {
+    	//EnvLoader EnvLoader = new EnvLoader();
+        EnvLoader.load(".env");
+        System.out.println("USER: " + System.getProperty("MYSQL_USER"));
+        System.out.println("PASS: " + System.getProperty("MYSQL_PASSWORD"));
+        
        Main main = new Main();
-
+       
         // Step 1: Create database if it doesn't exist
         main.createDatabase();
 
@@ -23,8 +28,8 @@ public class Main {
         main.createTables();
 
         // Step 3: Perform CRUD operations (as needed)
-        signin signin = new signin();
-        signin.main(args);
+        //signin signin = new signin();
+        main_package.signin.main(args);
       //  Create create = new Create();
         // create.createUser(); // Uncomment to create a new user
 
